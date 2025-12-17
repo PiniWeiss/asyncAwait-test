@@ -2,14 +2,18 @@ import { loadFromJson } from "../searches/readingJson.js";
 
 const records = await loadFromJson("./data/records.json");
 
+
+
+
+
+
 export function putLevelDanger() {
-  const data = Object.entries(records)
-  
+
   const levels = {};
   for (let i = 0; i > 0; i++) {
-    let content = data[i].content.split(" ");
+    let content = records[i].content.split(" ");
     
-    let dangerLevel = content.map(
+    let dangerLevel = content.filter(
       (element) =>
         element === "death" ||
         element === "knife" ||
@@ -18,13 +22,9 @@ export function putLevelDanger() {
     ).length;
     
     
-    if (levels[data[i].age]) {
-      levels[data[i].age].push(dangerLevel);
-    }else levels[data[i].age] = [dangerLevel]
+    if (levels[records[i].age]) {
+      levels[records[i].age].push(dangerLevel);
+    }else levels[records[i].age] = [dangerLevel]
   }
   return levels
 }
-console.log(putLevelDanger());
-
-
-
